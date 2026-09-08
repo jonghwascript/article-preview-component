@@ -1,0 +1,45 @@
+@charset 'UTF-8';
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  font-size: 0.8125rem;
+  /* 13px*/
+}
+
+:root {
+  --white-bg: #FFFFFF;
+  --Grey-900: #48556A;
+  --Grey-500: ##6E8098;
+  --Grey-400: ##9DAEC2;
+  --Grey-200: #ECF2F8;
+
+   --font-body: "Manrope", sans-serif;
+
+  /* 작성 규칙: font-weight | font-size/line-height | font-family */
+  -Text-Preset-1:  900 20px/1.3 var(--font-body); /* 20px 0.25px letter spacing */
+  -Text-Preset-2m:  500 13px/1.4 var(--font-body); /* 13px 0.12% letter spacing */
+  -Text-Preset-2b:  900 13px/1.4 var(--font-body); /* 13px 0.12% letter spacing*/
+  -Text-Preset-3:  400 13px/1.4 var(--font-body); /* 13px 25% letter spacing*/
+}
