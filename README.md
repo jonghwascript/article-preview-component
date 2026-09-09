@@ -27,7 +27,7 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![Desktop layout of the article preview card, showing the furniture article image, title, excerpt, author info, and share button](./screenshot.jpg)
 
 ### Links
 
