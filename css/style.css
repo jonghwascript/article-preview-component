@@ -31,8 +31,8 @@ button {
 
 body {
   font-size: 0.8125rem;
-  background-color: var(--Grey-200);
   /* 13px*/
+  background-color: var(--Grey-200);
   overflow-x: hidden;
   margin: 0;
 }
@@ -47,13 +47,13 @@ body {
   --font-body: "Manrope", sans-serif;
 
   /* 작성 규칙: font-weight | font-size/line-height | font-family */
-  --Text-Preset-1: 900 20px/1.3 var(--font-body);
+  --Text-Preset-1: 900 1.25rem/1.3 var(--font-body);
   /* 20px 0.25px letter spacing */
-  --Text-Preset-2m: 500 13px/1.4 var(--font-body);
+  --Text-Preset-2m: 500 0.8125rem/1.4 var(--font-body);
   /* 13px 0.12% letter spacing */
-  --Text-Preset-2b: 900 13px/1.4 var(--font-body);
+  --Text-Preset-2b: 900 0.8125rem/1.4 var(--font-body);
   /* 13px 0.12% letter spacing*/
-  --Text-Preset-3: 400 13px/1.4 var(--font-body);
+  --Text-Preset-3: 400 0.8125rem/1.4 var(--font-body);
   /* 13px 25% letter spacing*/
 
 }
@@ -74,12 +74,15 @@ body {
 
 .preview-card {
   width: 100%;
-  max-width: 327px;
+  max-width: 20.4375rem;
+  /*327px*/
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+  /* 이미지가 화면 밖을 벗어나지 못하도록 하기 위함 */
   overflow: hidden;
   background-color: var(--white-bg);
+  /* 모바일에서 preview-card__share-pop asbolute의 기준*/
   position: relative;
 }
 
@@ -111,8 +114,6 @@ body {
   padding: 0 30px;
   display: flex;
   align-items: center;
-  position: relative;
-  overflow: hidden;
 }
 
 .preview-card__avatar {
@@ -136,8 +137,11 @@ body {
   color: var(--Grey-400);
 }
 
-.preview-card__share-btn {
+.preview-card__group {
   margin-left: auto;
+}
+
+.preview-card__share-btn {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -145,9 +149,10 @@ body {
   position: relative;
   background-color: var(--Grey-200);
   z-index: 1;
+  transition: background-color 0.3s ease;
 }
 
-.preview-card__share {
+.preview-card__share-pop {
   display: none;
   position: absolute;
   left: 0;
@@ -173,10 +178,6 @@ body {
   margin-inline-start: 16px;
 }
 
-.preview-card__share-btn {
-  transition: background-color 0.3s ease;
-}
-
 .preview-card__share-btn path {
   transition: fill 0.3s ease;
 }
@@ -195,39 +196,71 @@ body {
     display: grid;
     grid-template-columns: 229px 1fr;
     grid-template-rows: repeat(3, 1fr);
-    grid-template-areas: 
-    "image content"
-    "image content"
-    "image author"
+    grid-template-areas:
+      "image content"
+      "image content"
+      "image author"
     ;
-
     box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.08);
+    overflow: visible;
   }
 
   .preview-card__image {
+    border-radius: 10px 0 0 10px;
     grid-area: image;
     height: 100%;
   }
 
-  .preview-card__content{
+  .preview-card__content {
     grid-area: content;
     margin: 0;
   }
 
-  .preview-card__author{
+  .preview-card__author {
     align-self: center;
     grid-area: author;
     margin: 0;
   }
 
-  .preview-card__tip{
+  .preview-card__group {
+    position: relative;
+  }
+
+  .preview-card__tip {
     letter-spacing: 0.12%;
     line-height: 1.4;
+  }
+
+  .preview-card__share-pop {
+    top: auto;
+    bottom: 44px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: 248px;
+    height: auto;
+    padding: 16px 24px;
+    border-radius: 10px;
+  }
+
+  .preview-card__share-pop::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: var(--Grey-900);
   }
 }
 
 @media(min-width: 1024px) {
-    .preview-card {
-      max-width:730px;
-    }
+  .preview-card {
+    max-width: 730px;
+  }
+
+  .preview-card__share-pop {
+    width: max-content;
+  }
 }
