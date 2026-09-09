@@ -82,7 +82,7 @@ body {
   /* 이미지가 화면 밖을 벗어나지 못하도록 하기 위함 */
   overflow: hidden;
   background-color: var(--white-bg);
-  /* 모바일에서 preview-card__share-pop asbolute의 기준*/
+  /* 모바일에서 preview-card__share-pop absolute의 기준*/
   position: relative;
 }
 
