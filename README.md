@@ -138,6 +138,70 @@ const shareBtn = document.querySelector(".preview-card__share-btn");
 
 Nesting the share popover directly inside the `<button>` seemed convenient for positioning, but caused two real problems: clicks on the links *inside* the popover bubbled up to the button's own click handler and immediately closed it again, and nesting interactive elements (`<a>` inside `<button>`) is invalid HTML. Wrapping the button and the popover in a sibling container instead (`.preview-card__group`) fixed both issues and, as a bonus, gave the popover a small, predictably-sized positioning anchor — so it could be centered with `left: 50%; transform: translateX(-50%)` instead of hand-tuned pixel offsets that broke at different viewport widths.
 
+**8. Resetting default `a`/`button` styles removes the interaction affordance, not just the "ugly" default**
+
+```css
+a {
+  text-decoration: none;
+}
+
+button {
+  outline: none;
+  border: 0;
+}
+```
+
+These resets left the share links and share button with no `:hover` feedback for mouse users and no visible focus ring for keyboard users tabbing through the page. The fix is to add the states back explicitly instead of just removing the browser default:
+
+```css
+.preview-card__share-btn:hover {
+  background-color: var(--Grey-500);
+}
+
+.preview-card__share-btn:hover path {
+  fill: var(--white-bg);
+}
+
+.preview-card__icon a:hover {
+  opacity: 0.6;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--Grey-500);
+  outline-offset: 2px;
+}
+```
+
+Using `:focus-visible` instead of `:focus` keeps the outline from flashing on a mouse click while still showing it for keyboard navigation.
+
+**9. `letter-spacing` doesn't accept a `%` value**
+
+```css
+.preview-card__tip {
+  letter-spacing: 0.12%;
+}
+```
+
+`letter-spacing` only accepts `normal` or a `<length>` — a percentage isn't a valid value for this property, so the browser drops the whole declaration and falls back to `normal`. The `0.12%` came from copying a design-tool convention (spacing expressed as a percentage of font size) straight into CSS without converting it to a length. Fixed by using `0.12px` instead.
+
+**10. `<time datetime>` needs a machine-readable value, not the display string**
+
+```html
+<time datetime="28 Jun 2020">28 Jun 2020</time>
+```
+
+The visible text can be formatted however you like, but the `datetime` attribute is what browsers/tools/screen readers parse, and it's expected in ISO 8601 (`YYYY-MM-DD`). Fixed by splitting the two: `datetime="2020-06-28"` with `28 Jun 2020` kept as the human-readable text node.
+
+**11. A requested font weight that doesn't exist just gets faked**
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+--Text-Preset-1: 900 1.25rem/1.3 var(--font-body);
+```
+
+Two text presets used `font-weight: 900`, but the `@import` only requested 400/500/700 — and Manrope's variable range doesn't even go past 800. Since the exact weight isn't available, the browser either snaps to the closest loaded weight or synthesizes a faux-bold, so the heading and author name wouldn't render at the intended thickness. The style guide's heading weights are 500/700, so the presets were changed to `700` to match what's actually loaded rather than adding a weight the font doesn't have.
+
 ### Continued development
 
 - Fine-tune spacing/typography against the Figma source for pixel-perfect accuracy (currently eyeballed from the JPG design files).

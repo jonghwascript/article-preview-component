@@ -29,6 +29,11 @@ button {
   border: 0;
 }
 
+button:focus-visible {
+  outline: 2px solid var(--Grey-500);
+  outline-offset: 2px;
+}
+
 body {
   font-size: 0.8125rem;
   /* 13px*/
@@ -47,11 +52,11 @@ body {
   --font-body: "Manrope", sans-serif;
 
   /* 작성 규칙: font-weight | font-size/line-height | font-family */
-  --Text-Preset-1: 900 1.25rem/1.3 var(--font-body);
+  --Text-Preset-1: 700 1.25rem/1.3 var(--font-body);
   /* 20px 0.25px letter spacing */
   --Text-Preset-2m: 500 0.8125rem/1.4 var(--font-body);
   /* 13px 0.12% letter spacing */
-  --Text-Preset-2b: 900 0.8125rem/1.4 var(--font-body);
+  --Text-Preset-2b: 700 0.8125rem/1.4 var(--font-body);
   /* 13px 0.12% letter spacing*/
   --Text-Preset-3: 400 0.8125rem/1.4 var(--font-body);
   /* 13px 25% letter spacing*/
@@ -178,8 +183,25 @@ body {
   margin-inline-start: 16px;
 }
 
+.preview-card__icon a {
+  display: inline-block;
+  transition: opacity 0.3s ease;
+}
+
+.preview-card__icon a:hover {
+  opacity: 0.6;
+}
+
 .preview-card__share-btn path {
   transition: fill 0.3s ease;
+}
+
+.preview-card__share-btn:hover {
+  background-color: var(--Grey-500);
+}
+
+.preview-card__share-btn:hover path {
+  fill: var(--white-bg);
 }
 
 .preview-card__share-btn--active {
@@ -227,7 +249,7 @@ body {
   }
 
   .preview-card__tip {
-    letter-spacing: 0.12%;
+    letter-spacing: 0.12px;
     line-height: 1.4;
   }
 
